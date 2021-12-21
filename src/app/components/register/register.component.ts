@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   password?: FormControl;
   confirmPassword?: FormControl
   errorMessage?: string
+  registrationSuccessful?: boolean
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -49,8 +50,8 @@ export class RegisterComponent implements OnInit {
   registerUser(registerForm: FormGroup): void {
     if (registerForm.valid){
       this.userService.registerUser(registerForm).subscribe((res: HttpResponse<RegisteredUser> ) => {
-        if(res.status === 201){
-          this.router.navigate(['/login'])
+        if(res){
+          this.registrationSuccessful = true
         }
       }, (err) => {
         this.errorMessage =  this.userService.filterRegistrationErrors(err.error.message) // finds the registration error
