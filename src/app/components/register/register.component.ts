@@ -1,3 +1,5 @@
+import { UserRegister } from './../../shared/models/user-models';
+import { UserService } from './../../shared/services/user-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
@@ -13,7 +15,7 @@ export class RegisterComponent implements OnInit {
   password?: FormControl;
   confirmPassword?: FormControl
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.buildRegisterUserForm()
@@ -42,6 +44,10 @@ export class RegisterComponent implements OnInit {
   // registerUser calls the user service and registers the user
   registerUser(registerForm: FormGroup): void {
     if (registerForm.valid){
+      this.userService.registerUser(registerForm).subscribe((res) => {
+        console.log(res);
+
+      })
 
     }
 
