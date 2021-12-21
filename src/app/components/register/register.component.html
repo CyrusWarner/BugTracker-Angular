@@ -1,11 +1,11 @@
-  <div class="container middle">
-    <div class="row ">
-      <div class="col-3"></div>
-      <div class="col-6 ">
-        <div class="text-center">
-          <h1 class="form-title">Register</h1>
-        </div>
-        <form [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm)" >
+  <div class="container">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8 mt-3 mb-3 ">
+  <div class="user-box">
+    <a class="user-links fs-3 me-3" routerLink="/register"  routerLinkActive="active">Register</a>
+    <a class="user-links fs-3 me-3" routerLink="/login" routerLinkActive="active">Login</a>
+        <form class="m-5" [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm)" >
           <label>First Name</label>
           <em  class="float-end" *ngIf="firstName?.errors?.required && firstName?.touched">Required</em>
           <div>
@@ -27,7 +27,9 @@
           <em class="ms-1" *ngIf="errorMessage">{{errorMessage}}</em>
         </form>
       </div>
-      <div class="col-3"></div>
-    </div>
   </div>
+      <div class="col-2"></div>
+    </div>
+</div>
+
 
