@@ -9,11 +9,11 @@
         <label>Email</label>
         <em  class="float-end" *ngIf="email?.errors?.required && email?.touched">Required</em>
         <div>
-          <input formControlName="firstName" class="form-control mt-1 shadow-none rounded-0" />
+          <input formControlName="email" class="form-control mt-1 shadow-none rounded-0" />
         </div>
         <label>Password</label>
         <em class="float-end" *ngIf="password?.errors?.required && password?.touched">Required</em>
-        <input formControlName="lastName" class="form-control mt-1 shadow-none rounded-0" />
+        <input formControlName="password" class="form-control mt-1 shadow-none rounded-0" />
         <button class="mt-2 form-btn" [disabled]="canSubmitLoginForm(loginUserForm)" type="submit">Confirm Registration</button>
         <!-- <em class="ms-1" *ngIf="errorMessage">{{errorMessage}}</em> -->
       </form>
