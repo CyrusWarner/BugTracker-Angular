@@ -5,7 +5,7 @@
         <div class="text-center">
           <h1 class="form-title">Register</h1>
         </div>
-        <form [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm.value)" >
+        <form [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm)" >
           <label>First Name</label>
           <em  class="float-end" *ngIf="firstName?.errors?.required && firstName?.touched">Required</em>
           <div>
