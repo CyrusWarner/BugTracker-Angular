@@ -20,10 +20,10 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  buildRegisterUserForm(){
+  buildRegisterUserForm(): void{
     // Builds the register form
-    this.firstName = new FormControl('', [Validators.required, Validators.minLength(3)])
-    this.lastName = new FormControl('', [Validators.required, Validators.minLength(3)])
+    this.firstName = new FormControl('', [Validators.required])
+    this.lastName = new FormControl('', [Validators.required])
     this.email = new FormControl('', [Validators.required])
     this.password = new FormControl('', [Validators.required])
     this.confirmPassword = new FormControl('', Validators.required)
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   // registerUser calls the user service and registers the user
-  registerUser(registerForm: FormGroup) {
+  registerUser(registerForm: FormGroup): void {
     if (registerForm.valid){
 
     }

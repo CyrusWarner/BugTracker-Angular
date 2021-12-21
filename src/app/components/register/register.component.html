@@ -1,23 +1,27 @@
 <div>
   <div class="container">
     <div class="row">
-      <div class="col-3"></div>
-      <div class="col-6">
+      <div class="col-2"></div>
+      <div class="col-8">
         <form [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm.value)" >
           <label>First Name</label>
-          <input formControlName="firstName" class="form-control" />
+          <em  class="float-end" *ngIf="firstName?.errors?.required && firstName?.touched">Required</em>
+          <div>
+            <input formControlName="firstName" class="form-control shadow-none rounded-0" />
+          </div>
           <label>Last Name</label>
-          <input formControlName="lastName" class="form-control" />
+          <em class="float-end" *ngIf="lastName?.errors?.required && lastName?.touched">Required</em>
+          <input formControlName="lastName" class="form-control shadow-none rounded-0" />
           <label>Email</label>
-          <input formControlName="email" class="form-control" />
+          <input formControlName="email" class="form-control shadow-none rounded-0" />
           <label>Password</label>
-          <input formControlName="password" class="form-control" />
+          <input formControlName="password" class="form-control shadow-none rounded-0" />
           <label>Confirm Password</label>
-          <input formControlName="confirmPassword" class="form-control" />
-          <button [disabled]="canSubmitRegisterForm(registerUserForm)" type="submit">Submit</button>
+          <input formControlName="confirmPassword" class="form-control shadow-none rounded-0" />
+          <button class="mt-2 form-btn" [disabled]="canSubmitRegisterForm(registerUserForm)" type="submit">Confirm Registration</button>
         </form>
       </div>
-      <div class="col-3"></div>
+      <div class="col-2"></div>
     </div>
   </div>
 </div>

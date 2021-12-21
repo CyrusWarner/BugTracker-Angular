@@ -1,2 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+
+em {
+  color: red;
+}
+
+.form-btn[disabled] {
+  opacity: 50% !important;
+  cursor: not-allowed !important;
+}
+
+.form-btn {
+  background-color: #04AA6D;
+  border: 1px solid #04AA6D;
+  color: white;
+  height: 3em;
+
+}
