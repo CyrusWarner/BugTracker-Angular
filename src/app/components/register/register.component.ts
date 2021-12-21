@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
   // registerUser calls the user service and registers the user
   registerUser(registerForm: FormGroup): void {
     if (registerForm.valid){
-      this.userService.registerUser(registerForm).subscribe((res) => {
+      this.userService.registerUser(registerForm.value).subscribe((res) => {
         console.log(res);
 
       })
