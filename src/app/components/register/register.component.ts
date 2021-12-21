@@ -52,8 +52,8 @@ export class RegisterComponent implements OnInit {
         if(res.status === 201){
           this.router.navigate(['/login'])
         }
-      }, (error) => {
-        this.errorMessage =  this.userService.filterRegistrationErrors(error.message) // finds the registration error
+      }, (err) => {
+        this.errorMessage =  this.userService.filterRegistrationErrors(err.error.message) // finds the registration error
       })
 
     }
