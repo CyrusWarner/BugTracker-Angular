@@ -14,7 +14,7 @@
           <input formControlName="password" class="form-control" />
           <label>Confirm Password</label>
           <input formControlName="confirmPassword" class="form-control" />
-          <button type="submit">Submit</button>
+          <button [disabled]="canSubmitRegisterForm(registerUserForm)" type="submit">Submit</button>
         </form>
       </div>
       <div class="col-3"></div>

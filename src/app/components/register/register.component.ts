@@ -39,8 +39,17 @@ export class RegisterComponent implements OnInit {
     )
   }
 
+  // registerUser calls the user service and registers the user
   registerUser(registerForm: FormGroup) {
+    if (registerForm.valid){
 
+    }
+
+  }
+
+  // canSubmitRegisterForm checks if the form is invalid and returns the value
+  canSubmitRegisterForm(registerForm: FormGroup): boolean {
+    return registerForm.invalid
   }
 
 }
