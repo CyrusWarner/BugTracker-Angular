@@ -1,28 +1,32 @@
-<div>
-  <div class="container">
-    <div class="row">
+  <div class="container middle">
+    <div class="row ">
       <div class="col-2"></div>
-      <div class="col-8">
+      <div class="col-8 ">
+        <div class="text-center">
+          <h1 class="form-title">Register</h1>
+        </div>
         <form [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm.value)" >
           <label>First Name</label>
           <em  class="float-end" *ngIf="firstName?.errors?.required && firstName?.touched">Required</em>
           <div>
-            <input formControlName="firstName" class="form-control shadow-none rounded-0" />
+            <input formControlName="firstName" class="form-control mt-1 shadow-none rounded-0" />
           </div>
           <label>Last Name</label>
           <em class="float-end" *ngIf="lastName?.errors?.required && lastName?.touched">Required</em>
-          <input formControlName="lastName" class="form-control shadow-none rounded-0" />
+          <input formControlName="lastName" class="form-control mt-1 shadow-none rounded-0" />
           <label>Email</label>
-          <input formControlName="email" class="form-control shadow-none rounded-0" />
+          <em  class="float-end" *ngIf="email?.errors?.required && email?.touched">Required</em>
+          <input formControlName="email" class="form-control mt-1 shadow-none rounded-0" />
           <label>Password</label>
-          <input formControlName="password" class="form-control shadow-none rounded-0" />
+          <em  class="float-end" *ngIf="password?.errors?.required && password?.touched">Required</em>
+          <input formControlName="password" class="form-control mt-1 shadow-none rounded-0" />
           <label>Confirm Password</label>
-          <input formControlName="confirmPassword" class="form-control shadow-none rounded-0" />
+          <em  class="float-end" *ngIf="confirmPassword?.errors?.required && confirmPassword?.touched">Required</em>
+          <input formControlName="confirmPassword" class="form-control mt-1 shadow-none rounded-0" />
           <button class="mt-2 form-btn" [disabled]="canSubmitRegisterForm(registerUserForm)" type="submit">Confirm Registration</button>
         </form>
       </div>
       <div class="col-2"></div>
     </div>
   </div>
-</div>
 

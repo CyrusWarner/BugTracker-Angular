@@ -17,3 +17,16 @@ em {
   height: 3em;
 
 }
+
+.form-title {
+  color: #212529;
+}
+
+label {
+  color: #212529;
+}
+
+html {
+  height: 100%;
+}
+
