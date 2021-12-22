@@ -1,3 +1,4 @@
+import { UserService } from './../../shared/services/user-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   email?: FormControl
   password?: FormControl
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(loginForm: FormGroup) {
-
+    if(loginForm.valid){
+      this.userService.loginUser(loginForm.value)
+    }
   }
 
   buildLoginUserForm() {

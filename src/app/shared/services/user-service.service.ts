@@ -1,3 +1,4 @@
+import { UserLogin, UserToken } from './../models/user-models';
 import { RegisteredUser, UserRegister } from '../models/user-models';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -7,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class UserService {
+  userToken?: string
 
   constructor(private httpClient: HttpClient) {}
 
@@ -17,10 +19,6 @@ export class UserService {
       .pipe(catchError(this.handleError))
   }
 
-  handleError(error: HttpErrorResponse) {
-    return throwError(error)
-  }
-
   buildRegisterUserRequest(registerUserForm: FormGroup) {
     let user: UserRegister = {
       firstName: registerUserForm.controls['firstName'].value,
@@ -28,8 +26,29 @@ export class UserService {
       email: registerUserForm.controls['email'].value,
       password: registerUserForm.controls['password'].value
     }
-
     return user
+  }
+
+  loginUser(userDetails: UserLogin) {
+    const url ="http://localhost:4200/api/user/login"
+     this.httpClient.post<UserToken>(url, userDetails )
+     .pipe(catchError( err => this.handleError(err)))
+     .subscribe((res) => {
+       if (res){
+         this.userToken = res.token
+       }
+     })
+  }
+
+  filterLoginErrors(errMessage: string ): string {
+    switch (errMessage){
+      case 'INVALID_LOGIN':
+        return 'Invalid Email Or Password'
+      case 'INVALID_USER_LOGIN_OBJECT':
+        return 'Please Enter Information Into All Fields'
+      default:
+        return 'Error Logging In'
+    }
   }
 
   filterRegistrationErrors(errMessage: string): string {
@@ -43,5 +62,7 @@ export class UserService {
     }
   }
 
-
+  handleError(error: HttpErrorResponse) {
+    return throwError(error)
+  }
 }
