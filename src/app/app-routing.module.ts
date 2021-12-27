@@ -9,7 +9,6 @@ const routes: Routes = [
     redirectTo: '/home',
     pathMatch: 'full'
   },
-
   {
     path: 'register',
     loadChildren: () => import('./components/register/register.module').then((m) => m.RegisterModule)
@@ -17,6 +16,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)
   }
 
 ];
