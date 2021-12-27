@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { LocalStorageService } from './local-storage-service.service';
 import { UserLogin, UserToken } from './../models/user-models';
 import { RegisteredUser, UserRegister } from '../models/user-models';
 import { Injectable } from "@angular/core";
@@ -10,7 +12,12 @@ import { FormGroup } from '@angular/forms';
 export class UserService {
   userToken!: UserToken | null
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private localStorageService: LocalStorageService,
+    private router: Router,
+    )
+    {}
 
    registerUser(registerUserForm: FormGroup): Observable<any> {
      let user = this.buildRegisterUserRequest(registerUserForm)
@@ -36,8 +43,19 @@ export class UserService {
      .subscribe((res) => {
        if (res){
          this.userToken = res.body
+         this.localStorageService.storeItemInLocalStorage('Token', res.body)
        }
      })
+  }
+
+  getUserFromLocalStorage() {
+    let token = this.localStorageService.getItemInLocalStorage('Token')
+    if(!token){
+      this.router.navigate(['/login'])
+    } else {
+      this.router.navigate(['/home'])
+      this.userToken = token
+    }
   }
 
   filterLoginErrors(errMessage: string ): string {

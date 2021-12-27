@@ -1,3 +1,4 @@
+import { UserToken } from './../models/user-models';
 import { Injectable } from "@angular/core";
 
 @Injectable()
@@ -5,11 +6,11 @@ export class LocalStorageService {
 
   constructor() {}
 
-  getItemInLocalStorage(key: string): string | null {
-    let storedUser = localStorage.getItem(key)
-    let token: string
-    if(storedUser) {
-      token = JSON.parse(storedUser)
+  getItemInLocalStorage(key: string): UserToken | null {
+    let storedUserToken = localStorage.getItem(key)
+    let token: UserToken
+    if(storedUserToken) {
+      token = JSON.parse(storedUserToken)
       return token
     }
     return null

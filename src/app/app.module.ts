@@ -1,3 +1,4 @@
+import { LocalStorageService } from './shared/services/local-storage-service.service';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +17,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     RouterModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    LocalStorageService,
+  ],
 
   bootstrap: [AppComponent]
 })
