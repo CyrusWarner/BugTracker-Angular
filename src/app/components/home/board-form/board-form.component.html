@@ -1,7 +1,7 @@
-<form>
+<form [formGroup]="boardForm" (ngSubmit)="addNewBoard(boardForm.value)">
   <label for="board-title">Board Title</label>
-  <input class="form-control mt-1 shadow-none rounded-0" id="board-title" type="text">
+  <input formControlName="title" class="form-control mt-1 shadow-none rounded-0" id="board-title" type="text">
   <label for="board-description">Board Description</label>
-  <textarea class="form-control mt-1 shadow-none rounded-0" id="board-description"></textarea>
-  <button class="mt-2 form-btn">Add New Board</button>
+  <textarea formControlName="description" class="form-control mt-1 shadow-none rounded-0" id="board-description"></textarea>
+  <button [disabled]="canSubmitBoardForm(boardForm)" type="submit" class="mt-2 form-btn">Add New Board</button>
 </form>
