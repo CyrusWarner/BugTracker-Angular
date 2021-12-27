@@ -19,7 +19,7 @@ export class UserService {
     )
     {}
 
-   registerUser(registerUserForm: FormGroup): Observable<any> {
+   registerUser(registerUserForm: FormGroup) {
      let user = this.buildRegisterUserRequest(registerUserForm)
      const url = "http://localhost:4200/api/user/register"
      return this.httpClient.post<RegisteredUser>(url, user, {observe: 'response'})
