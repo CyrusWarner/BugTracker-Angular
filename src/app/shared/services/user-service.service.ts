@@ -44,6 +44,7 @@ export class UserService {
        if (res){
          this.userToken = res.body
          this.localStorageService.storeItemInLocalStorage('Token', res.body)
+         this.router.navigate(['/home'])
        }
      })
   }
