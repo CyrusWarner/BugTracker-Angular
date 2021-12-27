@@ -6,12 +6,13 @@ export class LocalStorageService {
 
   constructor() {}
 
-  getItemInLocalStorage(key: string): UserToken | null {
-    let storedUserToken = localStorage.getItem(key)
-    let token: UserToken
-    if(storedUserToken) {
-      token = JSON.parse(storedUserToken)
-      return token
+  // used to retrieve any item from the localStorage
+  getItemInLocalStorage(key: string){
+    let storedItem = localStorage.getItem(key)
+    let item;
+    if(storedItem) {
+      item = JSON.parse(storedItem)
+      return item
     }
     return null
   }

@@ -10,16 +10,11 @@ import { throwError } from 'rxjs';
 export class BoardService {
   constructor(
     private httpClient: HttpClient,
-    private userService: UserService
     ) {}
 
-  addNewBoard(newBoard: NewBoard, userToken: string) {
+  addNewBoard(newBoard: NewBoard) {
     const url = 'http://localhost:4200/api/board'
-    const reqHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': userToken // TODO Remove the exclamation point and add a condition for if there is no token
-    })
-    return this.httpClient.post<NewBoard>(url, newBoard, {observe: 'response', headers: reqHeaders})
+    return this.httpClient.post<NewBoard>(url, newBoard, {observe: 'response'})
       .pipe(catchError(this.handleError))
   }
 

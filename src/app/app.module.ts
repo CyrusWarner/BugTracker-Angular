@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { BoardService } from './shared/services/board-service.service';
 import { LocalStorageService } from './shared/services/local-storage-service.service';
 import { RouterModule } from '@angular/router';
@@ -7,7 +8,7 @@ import { UserService } from './shared/services/user-service.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,12 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     UserService,
     LocalStorageService,
-    BoardService
+    BoardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
 
   bootstrap: [AppComponent]

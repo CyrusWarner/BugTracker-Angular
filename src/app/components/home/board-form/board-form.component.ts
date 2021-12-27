@@ -35,7 +35,7 @@ description?: FormControl
 
   addNewBoard(newBoard: NewBoard) {
     if(this.userService.userToken){
-      this.boardService.addNewBoard(newBoard, this.userService.userToken.token).subscribe((res) => {
+      this.boardService.addNewBoard(newBoard).subscribe((res) => {
         if(res){
           console.log(res);
         }

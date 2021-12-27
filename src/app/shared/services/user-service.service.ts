@@ -50,7 +50,7 @@ export class UserService {
   }
 
   getUserFromLocalStorage() {
-    let token = this.localStorageService.getItemInLocalStorage('Token')
+    let token: UserToken = this.localStorageService.getItemInLocalStorage('Token')
     if(!token){
       this.router.navigate(['/login'])
     } else {
