@@ -1,3 +1,5 @@
+import { UserService } from './../../../shared/services/user-service.service';
+import { BoardService } from './../../../shared/services/board-service.service';
 import { NewBoard } from './../../../shared/models/board-models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +14,10 @@ boardForm!: FormGroup
 title?: FormControl
 description?: FormControl
 
-  constructor() { }
+  constructor(
+    private boardService: BoardService,
+    private userService: UserService
+    ) { }
 
   ngOnInit(): void {
     this.buildBoardForm()
@@ -29,6 +34,16 @@ description?: FormControl
   }
 
   addNewBoard(newBoard: NewBoard) {
+    if(this.userService.userToken){
+      this.boardService.addNewBoard(newBoard, this.userService.userToken.token).subscribe((res) => {
+        if(res){
+          console.log(res);
+        }
+      }, (err) => {
+        console.log(err);
+
+      })
+    }
 
   }
 

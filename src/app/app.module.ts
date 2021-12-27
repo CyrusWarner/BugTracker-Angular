@@ -1,3 +1,4 @@
+import { BoardService } from './shared/services/board-service.service';
 import { LocalStorageService } from './shared/services/local-storage-service.service';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     UserService,
     LocalStorageService,
+    BoardService
   ],
 
   bootstrap: [AppComponent]
