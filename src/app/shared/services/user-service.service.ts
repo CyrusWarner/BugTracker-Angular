@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class UserService {
-  userToken?: string
+  userToken!: UserToken | null
 
   constructor(private httpClient: HttpClient) {}
 
@@ -31,11 +31,11 @@ export class UserService {
 
   loginUser(userDetails: UserLogin) {
     const url ="http://localhost:4200/api/user/login"
-     this.httpClient.post<UserToken>(url, userDetails )
+     this.httpClient.post<UserToken>(url, userDetails, {observe: 'response'} )
      .pipe(catchError( err => this.handleError(err)))
      .subscribe((res) => {
        if (res){
-         this.userToken = res.token
+         this.userToken = res.body
        }
      })
   }
@@ -47,7 +47,7 @@ export class UserService {
       case 'INVALID_USER_LOGIN_OBJECT':
         return 'Please Enter Information Into All Fields'
       default:
-        return 'Error Logging In'
+        return 'Error Logging In. Please Try Again Later'
     }
   }
 
