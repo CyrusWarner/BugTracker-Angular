@@ -1,7 +1,7 @@
 import { UserLogin, UserToken } from './../models/user-models';
 import { RegisteredUser, UserRegister } from '../models/user-models';
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
@@ -15,7 +15,7 @@ export class UserService {
    registerUser(registerUserForm: FormGroup): Observable<any> {
      let user = this.buildRegisterUserRequest(registerUserForm)
      const url = "http://localhost:4200/api/user/register"
-     return this.httpClient.post<RegisteredUser>(url, user)
+     return this.httpClient.post<RegisteredUser>(url, user, {observe: 'response'})
       .pipe(catchError(this.handleError))
   }
 

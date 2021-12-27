@@ -6,6 +6,9 @@
     <a class="user-links fs-3 me-3" routerLink="/register"  routerLinkActive="active">Register</a>
     <a class="user-links fs-3 me-3" routerLink="/login" routerLinkActive="active">Login</a>
         <form class="m-5" [formGroup]="registerUserForm" (ngSubmit)="registerUser(registerUserForm)" >
+    <div class="alert alert-danger" role="alert" *ngIf="resStatusCode === 400">{{errorMessage}}</div>
+    <div class="alert alert-danger" role="alert" *ngIf="resStatusCode === 500">{{errorMessage}}</div>
+    <div class="alert alert-success" role="alert" *ngIf="resStatusCode === 201">Registration Successful</div>
           <label>First Name</label>
           <em  class="float-end" *ngIf="firstName?.errors?.required && firstName?.touched">Required</em>
           <div>
@@ -25,7 +28,6 @@
           <em  class="float-end" *ngIf="registerUserForm?.errors?.misMatchPasswords && confirmPassword?.touched">Password Fields Must Match </em>
           <input formControlName="confirmPassword" class="form-control mt-1 shadow-none rounded-0" />
           <button class="mt-2 form-btn" [disabled]="canSubmitRegisterForm(registerUserForm)" type="submit">Confirm Registration</button>
-          <em class="ms-1" *ngIf="errorMessage">{{errorMessage}}</em>
         </form>
       </div>
   </div>

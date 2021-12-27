@@ -1,10 +1,9 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { UserRegister, RegisteredUser } from './../../shared/models/user-models';
+import { HttpResponse } from '@angular/common/http';
+import { RegisteredUser } from './../../shared/models/user-models';
 import { UserService } from './../../shared/services/user-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator } from 'src/app/validators/password-validator.directive';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,9 +17,9 @@ export class RegisterComponent implements OnInit {
   password?: FormControl;
   confirmPassword?: FormControl
   errorMessage?: string
-  registrationSuccessful?: boolean
+  resStatusCode?: number
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.buildRegisterUserForm()
@@ -51,9 +50,10 @@ export class RegisterComponent implements OnInit {
     if (registerForm.valid){
       this.userService.registerUser(registerForm).subscribe((res: HttpResponse<RegisteredUser> ) => {
         if(res){
-          this.registrationSuccessful = true
+          this.resStatusCode = res.status
         }
       }, (err) => {
+        this.resStatusCode = err.status
         this.errorMessage =  this.userService.filterRegistrationErrors(err.error.message) // finds the registration error
       })
 
