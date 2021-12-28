@@ -1,6 +1,6 @@
 import { UserService } from './../services/user-service.service';
 import { UserToken } from './../models/user-models';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from 'rxjs/operators';
@@ -20,14 +20,21 @@ export class AuthInterceptor implements HttpInterceptor {
       })
       return next.handle(clonedReq).pipe(tap((res) => {
 
-      }, (err) => { // TODO log this error at some point
-        this.userService.logout()
+      }, (err) => { // TODO CHECK TO MAKE SURE THIS ERROR IS RELATED TO THE TOKEN ITSELF
+        this.checkForAuthenticationError(err)
+        // this.userService.logout()
       }))
     } else {
 
       return next.handle(req)
     }
   }
+
+  checkForAuthenticationError(err: HttpErrorResponse) {
+    if(err.error.message === "Unauthorized" || err.error.message === "Problem occured during authorization")
+      this.userService.logout()
+
+  }
 }
 
-// TODO add error handle
+// TODO add error handler here for checking if the error occurs because of the token itself
