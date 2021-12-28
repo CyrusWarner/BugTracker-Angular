@@ -49,6 +49,10 @@ export class UserService {
      })
   }
 
+  logout() {
+    this.localStorageService.clearLocalStorage()
+  }
+
   getUserFromLocalStorage() {
     let token: UserToken = this.localStorageService.getItemInLocalStorage('Token')
     if(!token){

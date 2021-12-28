@@ -20,4 +20,9 @@ export class LocalStorageService {
   storeItemInLocalStorage(key: string, value: any){
     localStorage.setItem(key, JSON.stringify(value))
   }
+
+  clearLocalStorage() {
+    localStorage.clear()
+    window.location.href = "/login";
+  }
 }
