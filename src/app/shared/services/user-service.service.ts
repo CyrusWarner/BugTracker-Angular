@@ -62,12 +62,13 @@ export class UserService {
 
   // TODO check to make sure the user is valid in the GO user service
   getUserFromLocalStorage() {
-    let token: UserToken = this.localStorageService.getItemInLocalStorage('Token')
-    if(!token){
+    let userToken: UserToken = this.localStorageService.getItemInLocalStorage('Token')
+    if(!userToken){
       this.router.navigate(['/login'])
     } else {
       this.router.navigate(['/home'])
-      this.userToken = token
+      this.currentUser = this.decodeUserToken(userToken.token)
+      this.userToken = userToken
     }
   }
 

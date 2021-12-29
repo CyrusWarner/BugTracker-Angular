@@ -4,10 +4,10 @@
     <div class="col-8">
       <!-- TEST DATA -->
       <!-- TODO Remove test data -->
-        <div class="card" style="width: 18rem;">
+        <div *ngFor="let invitedBoard of invitedBoards" class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Amazon</h5>
-            <p class="card-text">This is a board amazon</p>
+            <h5 class="card-title">{{invitedBoard.board.title}}</h5>
+            <p class="card-text">{{invitedBoard.board.description}}</p>
           </div>
       </div>
     </div>

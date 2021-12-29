@@ -1,7 +1,7 @@
 import { BoardService } from './../../../shared/services/board-service.service';
-import { User } from './../../../shared/models/user-models';
 import { UserService } from './../../../shared/services/user-service.service';
 import { Component, OnInit } from '@angular/core';
+import { UserBoard } from 'src/app/shared/models/board-models';
 
 @Component({
   selector: 'app-invited-boards',
@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invited-boards.component.css']
 })
 export class InvitedBoardsComponent implements OnInit {
+  invitedBoards: UserBoard[] = []
 
   constructor(
     private userService: UserService,
@@ -16,8 +17,6 @@ export class InvitedBoardsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.log(this.userService.currentUser);
-
     if(this.userService.currentUser){
       this.getInvitedBoards(this.userService.currentUser?.userId)
     }
@@ -26,8 +25,7 @@ export class InvitedBoardsComponent implements OnInit {
   getInvitedBoards(userId: number) {
     this.boardService.getInvitedBoards(userId).subscribe((res) => {
       if(res) {
-        console.log(res);
-
+        this.invitedBoards = res
       }
     }, (err) => {
       console.log(err);
