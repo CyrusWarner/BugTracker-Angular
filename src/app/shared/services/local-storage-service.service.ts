@@ -21,7 +21,7 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  clearLocalStorage() {
+  clearLocalStorage() { // TODO EDIT THIS METHOD TO ONLY CLEAR THE TOKEN AND EXPIRATIONDATE
     localStorage.clear()
     window.location.href = "/login";
   }

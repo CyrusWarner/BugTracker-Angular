@@ -4,7 +4,7 @@ import { UserLogin, UserToken } from './../models/user-models';
 import { RegisteredUser, UserRegister } from '../models/user-models';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 
@@ -53,6 +53,7 @@ export class UserService {
     this.localStorageService.clearLocalStorage()
   }
 
+  // TODO check to make sure the user is valid in the GO user service
   getUserFromLocalStorage() {
     let token: UserToken = this.localStorageService.getItemInLocalStorage('Token')
     if(!token){
