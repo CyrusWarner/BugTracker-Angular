@@ -28,7 +28,7 @@ export class InvitedBoardsComponent implements OnInit {
         this.invitedBoards = res
       }
     }, (err) => {
-      console.log(err);
+      console.log(err); // TODO add error handling
 
     })
 
