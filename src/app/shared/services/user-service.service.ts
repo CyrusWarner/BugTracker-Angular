@@ -1,16 +1,17 @@
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage-service.service';
-import { UserLogin, UserToken } from './../models/user-models';
+import { UserLogin, UserToken, User } from './../models/user-models';
 import { RegisteredUser, UserRegister } from '../models/user-models';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
-
+import jwtDecode from 'jwt-decode';
 @Injectable()
 export class UserService {
   userToken!: UserToken | null
+  currentUser?: User
 
   constructor(
     private httpClient: HttpClient,
@@ -41,12 +42,18 @@ export class UserService {
      this.httpClient.post<UserToken>(url, userDetails, {observe: 'response'} )
      .pipe(catchError( err => this.handleError(err)))
      .subscribe((res) => {
-       if (res){
+       if (res && res.body){
          this.userToken = res.body
          this.localStorageService.storeItemInLocalStorage('Token', res.body)
+         this.currentUser = this.decodeUserToken(this.userToken.token)
          this.router.navigate(['/home'])
        }
      })
+  }
+
+  decodeUserToken(token: string):User {
+      const user:User = jwtDecode(token);
+      return user
   }
 
   logout() {
