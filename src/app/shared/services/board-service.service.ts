@@ -1,7 +1,6 @@
-import { UserService } from './user-service.service';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { NewBoard } from './../models/board-models';
+import { NewBoard, UserBoard } from './../models/board-models';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 
@@ -15,6 +14,12 @@ export class BoardService {
   addNewBoard(newBoard: NewBoard) {
     const url = 'http://localhost:4200/api/board'
     return this.httpClient.post<NewBoard>(url, newBoard, {observe: 'response'})
+      .pipe(catchError(this.handleError))
+  }
+
+  getInvitedBoards(userId: number) {
+    const url = `http://localhost:4001/api/board/invited-boards/user/${userId}`
+    return this.httpClient.get<UserBoard>(url)
       .pipe(catchError(this.handleError))
   }
 
