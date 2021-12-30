@@ -85,7 +85,7 @@ export class UserService {
 
   filterRegistrationErrors(errMessage: string): string {
     switch (errMessage){
-      case 'INVALID_USER_OBJECT':
+      case 'INVALID_USER_REGISTER_OBJECT':
         return 'Please Enter Information Into All Fields'
       case 'USER_ALREADY_REGISTERED':
         return 'User Already registered'
