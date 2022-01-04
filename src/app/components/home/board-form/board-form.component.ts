@@ -41,8 +41,7 @@ description?: FormControl
           console.log(res);
         }
       }, (err) => {
-        console.log(err);
-
+        console.log(err); // TODO(Modal Category) - Add Error handling Display Modal to Show a problem has occured
       })
     }
 

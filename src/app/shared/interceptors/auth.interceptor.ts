@@ -7,7 +7,6 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 
-// TODO CREATE A WAY TO LOG THE USER OUT IF THE USER IS UNAUTHORIZED
 // TODO IN USER SERVICE ADD FLAG FOR FORCED LOGOUT
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private userService: UserService) {}
@@ -20,9 +19,8 @@ export class AuthInterceptor implements HttpInterceptor {
       })
       return next.handle(clonedReq).pipe(tap((res) => {
 
-      }, (err) => { // TODO CHECK TO MAKE SURE THIS ERROR IS RELATED TO THE TOKEN ITSELF
+      }, (err) => {
         this.checkForAuthenticationError(err)
-        // this.userService.logout()
       }))
     } else {
 
@@ -31,9 +29,10 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   checkForAuthenticationError(err: HttpErrorResponse) {
-    if(err.error.message === "Unauthorized" || err.error.message === "Problem occured during authorization")
+    if(err.error.message === "Unauthorized" || err.error.message === "Problem occured during authorization") {
       this.userService.logout()
 
+    }
   }
 }
 
