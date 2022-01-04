@@ -154,5 +154,27 @@ describe('UserService', () => {
       expect(res).toEqual('Error Logging In. Please Try Again Later')
     })
   })
+  describe('filterRegistrationErrors', () => {
+    it('should return "Please Enter Information Into All Fields"', () => {
+      const errMessage: string = 'INVALID_USER_REGISTER_OBJECT'
 
+      let res = service.filterRegistrationErrors(errMessage)
+
+      expect(res).toEqual('Please Enter Information Into All Fields')
+    })
+    it('should return "User Already registered"', () => {
+      const errMessage: string = 'USER_ALREADY_REGISTERED'
+
+      let res = service.filterRegistrationErrors(errMessage)
+
+      expect(res).toEqual('User Already registered')
+    })
+    it('should return the default error "Error Registering User" if the error is not in any of the cases', () => {
+      const errMessage: string = 'Internal Server Error'
+
+      let res = service.filterRegistrationErrors(errMessage)
+
+      expect(res).toEqual('Error Registering User')
+    })
+  })
 })
