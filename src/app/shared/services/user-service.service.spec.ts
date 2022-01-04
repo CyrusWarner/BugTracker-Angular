@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { RegisteredUser, UserLogin, UserToken } from './../models/user-models';
+import { RegisteredUser, User, UserLogin, UserToken } from './../models/user-models';
 import { LocalStorageService } from './local-storage-service.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './user-service.service';
@@ -13,7 +13,7 @@ describe('UserService', () => {
   let routerSpy: any
   let httpTestingController: HttpTestingController
   beforeEach(() => {
-    localStorageServiceSpy = jasmine.createSpyObj('LocalStorageService', ['storeItemInLocalStorage'])
+    localStorageServiceSpy = jasmine.createSpyObj('LocalStorageService', ['storeItemInLocalStorage', 'clearLocalStorage', 'getItemInLocalStorage'])
     routerSpy = jasmine.createSpyObj('Router', ['navigate'])
     TestBed.configureTestingModule({
       imports: [
@@ -73,12 +73,62 @@ describe('UserService', () => {
         token: 'wasd',
         expiration: 1110607
       }
-      spyOn(service, 'decodeUserToken')
+      const expectedDecodedUser: User = {
+        userId: 1,
+        firstName: 'test',
+        lastName: 'user',
+        email: user.email,
+        emailConfirmed: true,
+        dateJoined: '01-04-2022'
+
+      }
+      spyOn(service, 'decodeUserToken').and.returnValue(expectedDecodedUser)
 
       service.loginUser(user)
 
       const req = httpTestingController.expectOne(expectedUrl)
       req.flush(expectedResponse)
+      expect(service.currentUser).toEqual(expectedDecodedUser)
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/home'])
+    })
+  })
+
+  describe('logout', () => {
+    it('should call the localStorageService method clearLocalStorage', () => {
+      service.logout()
+
+      expect(localStorageServiceSpy.clearLocalStorage).toHaveBeenCalled()
+    })
+  })
+  describe('getUserFromLocalStorage', () => {
+    it('shoud navigate to the LoginComponent if no userToken can be found from the localStorageService', () => {
+      localStorageServiceSpy.getItemInLocalStorage.and.returnValue(null)
+
+      service.getUserFromLocalStorage()
+
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['/login'])
+    })
+    it('should nvaigate to the HomeComponent if a userToken is returned from the localStorageService', () => {
+      const userToken: UserToken = {
+        token: 'wasd',
+        expiration: 10002399
+      }
+      const expectedDecodedUser: User = {
+        userId: 1,
+        firstName: 'test',
+        lastName: 'user',
+        email: 'testuser@gmail.com',
+        emailConfirmed: true,
+        dateJoined: '01-04-2022'
+
+      }
+      localStorageServiceSpy.getItemInLocalStorage.and.returnValue(userToken)
+      spyOn(service, 'decodeUserToken').and.returnValue(expectedDecodedUser)
+
+      service.getUserFromLocalStorage()
+
+      expect(service.currentUser).toEqual(expectedDecodedUser)
+      expect(service.userToken).toEqual(userToken)
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/home'])
     })
   })
