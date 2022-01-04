@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RegisteredUser, User, UserLogin, UserToken } from './../models/user-models';
 import { LocalStorageService } from './local-storage-service.service';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from './user-service.service';
 import { TestBed } from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing'
@@ -130,6 +129,29 @@ describe('UserService', () => {
       expect(service.currentUser).toEqual(expectedDecodedUser)
       expect(service.userToken).toEqual(userToken)
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/home'])
+    })
+  })
+  describe('filterLoginErrors', () => {
+    it('should return "Invalid Email Or Password" if the errMessage is INVALID_LOGIN', () => {
+      const errMessage: string = 'INVALID_LOGIN'
+
+      let res = service.filterLoginErrors(errMessage)
+
+      expect(res).toEqual('Invalid Email Or Password')
+    })
+    it('should return "Please Enter Information Into All Fields" if the errMessage is INVALID_USER_LOGIN_OBJECT', () => {
+      const errMessage: string = 'INVALID_USER_LOGIN_OBJECT'
+
+      let res = service.filterLoginErrors(errMessage)
+
+      expect(res).toEqual('Please Enter Information Into All Fields')
+    })
+    it('should return "Error Logging In. Please Try Again Later" if the errMessage does not match any case', () => {
+      const errMessage: string = 'Internal Server Error'
+
+      let res = service.filterLoginErrors(errMessage)
+
+      expect(res).toEqual('Error Logging In. Please Try Again Later')
     })
   })
 
