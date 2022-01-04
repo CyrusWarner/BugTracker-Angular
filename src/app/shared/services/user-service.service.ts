@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 import jwtDecode from 'jwt-decode';
 @Injectable()
 export class UserService {
-  userToken!: UserToken | null
+  userToken!: UserToken
   currentUser?: User
 
   constructor(

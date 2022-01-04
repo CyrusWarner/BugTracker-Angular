@@ -1,3 +1,4 @@
+import { UserToken } from './../../../shared/models/user-models';
 import { UserService } from './../../../shared/services/user-service.service';
 import { BoardService } from './../../../shared/services/board-service.service';
 import { NewBoard } from './../../../shared/models/board-models';
@@ -16,7 +17,7 @@ description?: FormControl
 
   constructor(
     private boardService: BoardService,
-    private userService: UserService
+    public userService: UserService
     ) { }
 
   ngOnInit(): void {
@@ -33,8 +34,8 @@ description?: FormControl
     })
   }
 
-  addNewBoard(newBoard: NewBoard) {
-    if(this.userService.userToken){
+  addNewBoard(newBoard: NewBoard, userToken: UserToken) {
+    if(userToken.token){
       this.boardService.addNewBoard(newBoard).subscribe((res) => {
         if(res){
           console.log(res);

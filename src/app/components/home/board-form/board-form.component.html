@@ -1,4 +1,4 @@
-<form [formGroup]="boardForm" (ngSubmit)="addNewBoard(boardForm.value)">
+<form [formGroup]="boardForm" (ngSubmit)="addNewBoard(boardForm.value, userService.userToken)">
   <label for="board-title">Board Title</label>
   <em *ngIf="title?.errors?.required && title?.touched" class="float-end" >Required</em>
   <input formControlName="title" class="form-control mt-1 shadow-none rounded-0" id="board-title" type="text">
